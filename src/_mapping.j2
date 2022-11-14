@@ -1,0 +1,92 @@
+{%- import "src/_uuids.j2" as uuids with context -%}
+{#- METADATA -#}
+{%- set communityReply = repliesMap[uuids.communityPath] -%}
+{%- set communityName = "" -%}
+{%- set communityURI = "" -%}
+{%- if communityReply and communityReply.value.value.value -%}
+{%- if communityReply.value.value.type == 'IntegrationType' -%}
+    {%- set communityURI = communityReply.value.value.id -%}
+    {%- set communityName = communityReply.value.value.value.split('**')[1] -%}
+{%- elif communityReply.value.value.value.startswith('http') -%}
+    {%- set communityURI = communityReply.value.value.value -%}
+{%- else -%}
+    {%- set communityName = communityReply.value.value.value -%}
+{%- endif -%}
+{%- endif -%}
+{%- set dataSteward = repliesMap[uuids.dataStewardPath]|reply_str_value -%}
+{%- set startDate = repliesMap[uuids.startDatePath]|reply_str_value -%}
+{%- set endDate = repliesMap[uuids.endDatePath]|reply_str_value -%}
+
+{%- set metadata = {
+    'pubDate': ctx.createdAt,
+    'communityName': communityName,
+    'communityURI': communityURI,
+    'dataSteward': dataSteward,
+    'startDate': startDate,
+    'endDate': endDate,
+} -%}
+
+{#- DATA -#}
+{%- set declarations = [] -%}
+{%- for q in uuids.questions -%}
+    {%- set declarationsPath = [q.chapterUuid, q.questionUuid, q.answerUuid, q.declarationsUuid]|reply_path -%}
+    {%- set declarationItems = repliesMap[declarationsPath]|reply_items -%}
+    {%- for item in declarationItems -%}
+        {%- set itemPath = [declarationsPath, item]|reply_path -%}
+        {%- set resourceReply = repliesMap[[itemPath, q.resourceUuid]|reply_path] -%}
+        {%- set replacementReply = repliesMap[[itemPath, q.choiceUuid, q.replaceUuid, q.replacementUuid]|reply_path] -%}
+        {%- set choiceUuid = repliesMap[[itemPath, q.choiceUuid]|reply_path]|reply_str_value -%}
+        {%- set considerations = repliesMap[[itemPath, q.considerationsUuid]|reply_path]|reply_str_value -%}
+        {%- if resourceReply and choiceUuid -%}
+            {%- set resourceName = "" -%}
+            {%- set resourceURI = "" -%}
+            {%- set replacementName = "" -%}
+            {%- set replacementURI = "" -%}
+            {%- set choice = "" -%}
+
+            {#- resource -#}
+            {%- if resourceReply and resourceReply.value.value.value -%}
+            {%- if resourceReply.value.value.type == 'IntegrationType' -%}
+                {%- set resourceURI = resourceReply.value.value.id -%}
+                {%- set resourceName = resourceReply.value.value.value.split('**')[1] -%}
+            {%- elif resourceReply.value.value.value.startswith('http') -%}
+                {%- set resourceURI = resourceReply.value.value.value -%}
+            {%- else -%}
+                {%- set resourceName = resourceReply.value.value.value -%}
+            {%- endif -%}
+            {%- endif -%}
+
+            {#- choice -#}
+            {%- if choiceUuid == q.currentUuid -%}
+                {%- set choice = "currently in use" -%}
+            {%- elif choiceUuid == q.replaceUuid -%}
+                {%- set choice = "to be replaced" -%}
+
+                {#- replacement -#}
+                {%- if replacementReply and replacementReply.value.value.value -%}
+                {%- if replacementReply.value.value.type == 'IntegrationType' -%}
+                    {%- set replacementURI = replacementReply.value.value.id -%}
+                    {%- set replacementName = replacementReply.value.value.value.split('**')[1] -%}
+                {%- elif replacementReply.value.value.value.startswith('http') -%}
+                    {%- set replacementURI = replacementReply.value.value.value -%}
+                {%- else -%}
+                    {%- set replacementName = replacementReply.value.value.value -%}
+                {%- endif -%}
+                {%- endif -%}
+            {%- elif choiceUuid == q.plannedUuid -%}
+                {%- set choice = "planned use" -%}
+            {%- endif -%}
+
+            {%- do declarations.append({
+                'question': q.question,
+                'note': km.entities.questions[q.questionUuid].title,
+                'resourceName': resourceName,
+                'resourceURI': resourceURI,
+                'choice': choice,
+                'replacementName': replacementName,
+                'replacementURI': replacementURI,
+                'considerations': considerations,
+            }) -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endfor -%}

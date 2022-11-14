@@ -1,0 +1,88 @@
+{
+    "templateId": "fip-spreadsheet",
+    "organizationId": "gofair",
+    "version": "0.1.0",
+    "name": "FIP Spreadsheet",
+    "description": "Export FIP as tabular data/spreadsheet",
+    "license": "Apache-2.0",
+    "metamodelVersion": 10,
+    "recommendedPackageId": null,
+    "allowedPackages": [
+        {
+            "orgId": "gofair",
+            "kmId": "fip-wizard-2",
+            "minVersion": "3.0.0",
+            "maxVersion": null
+        },
+        {
+            "orgId": "gofair",
+            "kmId": "fip-wizard-3",
+            "minVersion": null,
+            "maxVersion": null
+        }
+    ],
+    "formats": [
+        {
+            "uuid": "6792eb81-35fc-4014-8d0d-e9e245aca1ef",
+            "name": "MS Excel",
+            "shortName": "excel",
+            "icon": "fas fa-file-excel",
+            "color": "#f15722",
+            "steps": [
+                {
+                    "name": "jinja",
+                    "options": {
+                        "template": "src/template.json.j2",
+                        "content-type": "application/json",
+                        "extension": "json"
+                    }
+                },
+                {
+                    "name": "excel",
+                    "options": {}
+                }
+            ]
+        },
+        {
+            "uuid": "564c5589-287e-456a-b179-0adc29252a2d",
+            "name": "CSV (metadata)",
+            "shortName": "csv",
+            "icon": "fas fa-file",
+            "color": "#f15722",
+            "steps": [
+                {
+                    "name": "jinja",
+                    "options": {
+                        "template": "src/template-metadata.csv.j2",
+                        "content-type": "text/plain",
+                        "extension": "csv"
+                    }
+                }
+            ]
+        },
+        {
+            "uuid": "564c5589-287e-456a-b179-0adc29252a32",
+            "name": "CSV (data)",
+            "shortName": "csv",
+            "icon": "fas fa-file",
+            "color": "#f15722",
+            "steps": [
+                {
+                    "name": "jinja",
+                    "options": {
+                        "template": "src/template-data.csv.j2",
+                        "content-type": "text/plain",
+                        "extension": "csv"
+                    }
+                }
+            ]
+        }
+    ],
+    "_tdk": {
+        "version": "3.17.0",
+        "readmeFile": "README.md",
+        "files": [
+            "src/**/*"
+        ]
+    }
+}

@@ -1,0 +1,9 @@
+{%- set km = ctx.knowledgeModel -%}
+{%- set repliesMap = ctx.questionnaireReplies -%}
+{%- import "src/_mapping.j2" as mapping with context -%}
+"Publication Date","{{ mapping.metadata.pubDate|datetime_format("%y-%m-%dT%H:%M:%SZ") }}"
+"Community Name","{{ mapping.metadata.communityName }}"
+"Community URI","{{ mapping.metadata.communityURI }}"
+"Data Steward","{{ mapping.metadata.dataSteward }}"
+"Start Date","{{ mapping.metadata.startDate }}"
+"End Date","{{ mapping.metadata.endDate }}"

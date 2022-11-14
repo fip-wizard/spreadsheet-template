@@ -1,0 +1,374 @@
+{%- set km = ctx.knowledgeModel -%}
+{%- set repliesMap = ctx.questionnaireReplies -%}
+{%- set dc = ctx|to_context_obj -%}
+{%- import "src/_mapping.j2" as mapping with context -%}
+
+{%- set author = "" -%}
+{%- if dc.qtn.created_by %}
+    {%- set author = dc.qtn.created_by.first_name ~ " " ~ dc.qtn.created_by.last_name -%}
+{%- endif %}
+{%- set properties = {
+    "title": ctx.questionnaireName,
+    "subject": "FAIR Implementation Profile",
+    "author": author,
+    "category": "FIP Wizard",
+    "keywords": "FAIR Data,Community,FAIR Implementation Profile,FAIR Choices",
+    "created": dc.doc.created_at|datetime_format("%Y-%m-%d"),
+} -%}
+{%- set formats = {
+    "heading": { "bold": true },
+    "headingLeft": { "bold": true, "left": 2, "right": 2, "left_color": "black", "right_color": "black" },
+    "headingLeftTop": { "bold": true, "left": 2, "right": 2, "top": 2, "left_color": "black", "right_color": "black", "top_color": "black" },
+    "headingRBorder": { "bold": true, "right": 2, "right_color": "black" },
+    "headingBBorder": { "bold": true, "bottom": 2, "bottom_color": "black" },
+    "headingLBorder": { "bold": true, "left": 2, "left_color": "black" },
+    "headingLBBorder": { "bold": true, "left": 2, "left_color": "black", "bottom": 2, "bottom_color": "black" },
+    "headingRBBorder": { "bold": true, "right": 2, "right_color": "black", "bottom": 2, "bottom_color": "black" },
+    "content": { "font_color": "blue" },
+    "contentTop": { "font_color": "blue", "top": 2, "top_color": "black" },
+    "gridSingle": { "font_color": "blue", "left": 2, "left_color": "black", "right": 2, "right_color": "black", "bottom": 1, "bottom_color": "black" },
+    "gridName": { "font_color": "blue", "left": 2, "left_color": "black", "right": 1, "right_color": "black", "bottom": 1, "bottom_color": "black" },
+    "gridURI": { "font_color": "blue", "left": 1, "left_color": "black", "right": 2, "right_color": "black", "bottom": 1, "bottom_color": "black" },
+    "headSingle": { "bold": true, "left": 2, "left_color": "black", "right": 2, "right_color": "black", "bottom": 2, "bottom_color": "black" },
+    "headName": { "bold": true, "left": 2, "left_color": "black", "right": 1, "right_color": "black", "bottom": 2, "bottom_color": "black" },
+    "headURI": { "bold": true, "left": 1, "left_color": "black", "right": 2, "right_color": "black", "bottom": 2, "bottom_color": "black" },
+    "centerHead": { "align": "center", "bold": true, "top": 2, "top_color": "black", "left": 2, "left_color": "black", "right": 2, "right_color": "black" },
+    "bottomRow": { "top": 2, "top_color": "black" }
+} -%}
+{%- set sheetMetadata = {
+    "name": "FIP Metadata",
+    "options": {
+        "column_pixels": [
+            {
+                "first_col": 0,
+                "last_col": 0,
+                "width": 120,
+            },
+            {
+                "first_col": 1,
+                "last_col": 1,
+                "width": 210,
+            },
+            {
+                "first_col": 2,
+                "last_col": 2,
+                "width": 560,
+            },
+        ],
+    },
+    "data": [
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "A1",
+            "value": "Publication Date",
+            "format": "headingLeftTop",
+        },
+        {
+            "type": "column",
+            "cell": "A2",
+            "data": [
+                "Community",
+                "Data Steward",
+                "Start Date",
+                "End Date",
+            ],
+            "format": "headingLeft",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "B1",
+            "value": mapping.metadata.pubDate,
+            "format": "contentTop",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "C1",
+            "value": "",
+            "format": "contentTop",
+        },
+        {
+            "type": "row",
+            "cell": "B2",
+            "data": [
+                mapping.metadata.communityName,
+                mapping.metadata.communityURI,
+            ],
+            "format": "content",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "B3",
+            "value": mapping.metadata.dataSteward,
+            "format": "content",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "B4",
+            "value": mapping.metadata.startDate,
+            "format": "content",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "B5",
+            "value": mapping.metadata.endDate,
+            "format": "content",
+        },
+        {
+            "type": "column",
+            "cell": "D1",
+            "data": [
+                "",
+                "",
+                "",
+                "",
+                "",
+            ],
+            "format": "headingLBorder",
+        },
+        {
+            "type": "row",
+            "cell": "A6",
+            "data": [
+                "",
+                "",
+                "",
+            ],
+            "format": "bottomRow",
+        },
+    ],
+} -%}
+{%- set data = [
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "A1",
+        "value": "",
+        "format": "centerHead",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "D1",
+        "value": "",
+        "format": "centerHead",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "G1",
+        "value": "",
+        "format": "centerHead",
+    },
+] -%}
+{#
+{%- set fipGrid = [] -%}
+{%- for declaration in mapping.declarations -%}
+    {%- do fipGrid.append([
+        declaration.question,
+        declaration.resourceName,
+        declaration.resourceURI,
+        declaration.choice,
+        declaration.replacementName,
+        declaration.replacementURI,
+        declaration.considerations,
+    ]) -%}
+{%- endfor -%}
+#}
+{%- do data.extend([
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "A2",
+        "value": "Question",
+        "format": "headSingle",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "B2",
+        "value": "Name",
+        "format": "headName",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "C2",
+        "value": "URI",
+        "format": "headURI",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "D2",
+        "value": "Usage",
+        "format": "headSingle",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "E2",
+        "value": "Name",
+        "format": "headName",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "F2",
+        "value": "URI",
+        "format": "headURI",
+    },
+    {
+        "type": "cell",
+        "subtype": "string",
+        "cell": "G2",
+        "value": "Considerations",
+        "format": "headSingle",
+    }
+]) -%}
+{#
+{%- do data.append({
+    "type": "grid",
+    "col": 0,
+    "row": 2,
+    "data": fipGrid,
+    "format": "content",
+}) -%}
+#}
+{%- for declaration in mapping.declarations -%}
+    {%- do data.extend([
+        {
+            "type": "cell",
+            "subtype": "string",
+            "col": 0,
+            "row": 1 + loop.index,
+            "value": declaration.question,
+            "format": "gridSingle",
+        },
+        {
+            "type": "comment",
+            "col": 0,
+            "row": 1 + loop.index,
+            "comment": declaration.note,
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "col": 1,
+            "row": 1 + loop.index,
+            "value": declaration.resourceName,
+            "format": "gridName",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "col": 2,
+            "row": 1 + loop.index,
+            "value": declaration.resourceURI,
+            "format": "gridURI",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "col": 3,
+            "row": 1 + loop.index,
+            "value": declaration.choice,
+            "format": "gridSingle",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "col": 4,
+            "row": 1 + loop.index,
+            "value": declaration.replacementName,
+            "format": "gridName",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "col": 5,
+            "row": 1 + loop.index,
+            "value": declaration.replacementURI,
+            "format": "gridURI",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "col": 6,
+            "row": 1 + loop.index,
+            "value": declaration.considerations,
+            "format": "gridSingle",
+        }
+    ]) -%}
+{%- endfor -%}
+{%- do data.append({
+    "type": "row",
+    "col": 0,
+    "row": 2 + mapping.declarations|length,
+    "data": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+    ],
+    "format": "bottomRow",
+}) -%}
+{%- set sheetData = {
+    "name": "FIP Data",
+    "options": {
+        "merge_ranges": [
+            {
+                "range": "B1:C1",
+                "data": "FAIR Enable Resource (FER)",
+                "format": "centerHead",
+            },
+            {
+                "range": "E1:F1",
+                "data": "Replacement FER",
+                "format": "centerHead",
+            }
+        ],
+        "column_pixels": [
+            {
+                "first_col": 1,
+                "last_col": 1,
+                "width": 300,
+            },
+            {
+                "first_col": 3,
+                "last_col": 3,
+                "width": 90,
+            },
+            {
+                "first_col": 4,
+                "last_col": 4,
+                "width": 300,
+            },
+            {
+                "first_col": 6,
+                "last_col": 6,
+                "width": 250,
+            }
+        ],
+    },
+    "data": data,
+} -%}
+{%- set excel = {
+    "properties": {
+        "document": properties,
+    },
+    "formats": formats,
+    "sheets": [
+        sheetMetadata,
+        sheetData,
+    ]
+} -%}
+{{ excel|tojson(2) }}
