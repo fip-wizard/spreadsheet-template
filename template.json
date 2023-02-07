@@ -1,12 +1,11 @@
 {
     "templateId": "fip-spreadsheet",
     "organizationId": "gofair",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "name": "FIP Spreadsheet",
     "description": "Export FIP as tabular data/spreadsheet",
     "license": "Apache-2.0",
-    "metamodelVersion": 10,
-    "recommendedPackageId": null,
+    "metamodelVersion": 11,
     "allowedPackages": [
         {
             "orgId": "gofair",
@@ -25,9 +24,7 @@
         {
             "uuid": "6792eb81-35fc-4014-8d0d-e9e245aca1ef",
             "name": "MS Excel",
-            "shortName": "excel",
             "icon": "fas fa-file-excel",
-            "color": "#f15722",
             "steps": [
                 {
                     "name": "jinja",
@@ -46,9 +43,7 @@
         {
             "uuid": "564c5589-287e-456a-b179-0adc29252a2d",
             "name": "CSV (metadata)",
-            "shortName": "csv",
             "icon": "fas fa-file",
-            "color": "#f15722",
             "steps": [
                 {
                     "name": "jinja",
@@ -63,9 +58,7 @@
         {
             "uuid": "564c5589-287e-456a-b179-0adc29252a32",
             "name": "CSV (data)",
-            "shortName": "csv",
             "icon": "fas fa-file",
-            "color": "#f15722",
             "steps": [
                 {
                     "name": "jinja",
@@ -79,7 +72,7 @@
         }
     ],
     "_tdk": {
-        "version": "3.17.0",
+        "version": "3.20.0",
         "readmeFile": "README.md",
         "files": [
             "src/**/*"

@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### 0.2.0
+
+- Updated to metamodel 11 (DSW 3.20.0)
+
 ### 0.1.0
 
 - Initial template for FIP as Spreadsheet
