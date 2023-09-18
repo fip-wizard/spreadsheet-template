@@ -9,10 +9,10 @@
 {%- endif %}
 {%- set properties = {
     "title": ctx.questionnaireName,
-    "subject": "FAIR Implementation Profile",
+    "subject": "Semantic Interability Profile",
     "author": author,
-    "category": "FIP Wizard",
-    "keywords": "FAIR Data,Community,FAIR Implementation Profile,FAIR Choices",
+    "category": "SIP Wizard",
+    "keywords": "FAIR Data,Community,Semantic Interoperability",
     "created": dc.doc.created_at|datetime_format("%Y-%m-%d"),
 } -%}
 {%- set formats = {
@@ -36,7 +36,7 @@
     "bottomRow": { "top": 2, "top_color": "black" }
 } -%}
 {%- set sheetMetadata = {
-    "name": "FIP Metadata",
+    "name": "SIP Metadata",
     "options": {
         "column_pixels": [
             {
@@ -69,6 +69,8 @@
             "cell": "A2",
             "data": [
                 "Community",
+                "Digital Object Type",
+                "Methodology",
                 "Data Steward",
                 "Start Date",
                 "End Date",
@@ -99,23 +101,41 @@
             "format": "content",
         },
         {
-            "type": "cell",
-            "subtype": "string",
+            "type": "row",
             "cell": "B3",
-            "value": mapping.metadata.dataSteward,
+            "data": [
+                mapping.metadata.digitalObjectTypeName,
+                mapping.metadata.digitalObjectTypeURI,
+            ],
             "format": "content",
         },
         {
-            "type": "cell",
-            "subtype": "string",
+            "type": "row",
             "cell": "B4",
-            "value": mapping.metadata.startDate,
+            "data": [
+                mapping.metadata.methodologyName,
+                mapping.metadata.methodologyURI,
+            ],
             "format": "content",
         },
         {
             "type": "cell",
             "subtype": "string",
             "cell": "B5",
+            "value": mapping.metadata.dataSteward,
+            "format": "content",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "B6",
+            "value": mapping.metadata.startDate,
+            "format": "content",
+        },
+        {
+            "type": "cell",
+            "subtype": "string",
+            "cell": "B7",
             "value": mapping.metadata.endDate,
             "format": "content",
         },
@@ -128,12 +148,14 @@
                 "",
                 "",
                 "",
+                "",
+                "",
             ],
             "format": "headingLBorder",
         },
         {
             "type": "row",
-            "cell": "A6",
+            "cell": "A8",
             "data": [
                 "",
                 "",
@@ -322,7 +344,7 @@
     "format": "bottomRow",
 }) -%}
 {%- set sheetData = {
-    "name": "FIP Data",
+    "name": "SIP Data",
     "options": {
         "merge_ranges": [
             {

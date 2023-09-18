@@ -13,6 +13,35 @@
     {%- set communityName = communityReply.value.value.value -%}
 {%- endif -%}
 {%- endif -%}
+
+{%- set digitalObjectTypeReply = repliesMap[uuids.dotypePath] -%}
+{%- set digitalObjectTypeName = "" -%}
+{%- set digitalObjectTypeURI = "" -%}
+{%- if digitalObjectTypeReply and digitalObjectTypeReply.value.value.value -%}
+{%- if digitalObjectTypeReply.value.value.type == 'IntegrationType' -%}
+    {%- set digitalObjectTypeURI = digitalObjectTypeReply.value.value.id -%}
+    {%- set digitalObjectTypeName = digitalObjectTypeReply.value.value.value.split('**')[1] -%}
+{%- elif digitalObjectTypeReply.value.value.value.startswith('http') -%}
+    {%- set digitalObjectTypeURI = digitalObjectTypeReply.value.value.value -%}
+{%- else -%}
+    {%- set digitalObjectTypeName = digitalObjectTypeReply.value.value.value -%}
+{%- endif -%}
+{%- endif -%}
+
+{%- set methodologyReply = repliesMap[uuids.methodologyPath] -%}
+{%- set methodologyName = "" -%}
+{%- set methodologyURI = "" -%}
+{%- if methodologyReply and methodologyReply.value.value.value -%}
+{%- if methodologyReply.value.value.type == 'IntegrationType' -%}
+    {%- set methodologyURI = methodologyReply.value.value.id -%}
+    {%- set methodologyName = methodologyReply.value.value.value.split('**')[1] -%}
+{%- elif methodologyReply.value.value.value.startswith('http') -%}
+    {%- set methodologyURI = methodologyReply.value.value.value -%}
+{%- else -%}
+    {%- set methodologyName = methodologyReply.value.value.value -%}
+{%- endif -%}
+{%- endif -%}
+
 {%- set dataSteward = repliesMap[uuids.dataStewardPath]|reply_str_value -%}
 {%- set startDate = repliesMap[uuids.startDatePath]|reply_str_value -%}
 {%- set endDate = repliesMap[uuids.endDatePath]|reply_str_value -%}
@@ -21,6 +50,10 @@
     'pubDate': ctx.createdAt,
     'communityName': communityName,
     'communityURI': communityURI,
+    'digitalObjectTypeName': digitalObjectTypeName,
+    'digitalObjectTypeURI': digitalObjectTypeURI,
+    'methodologyName': methodologyName,
+    'methodologyURI': methodologyURI,
     'dataSteward': dataSteward,
     'startDate': startDate,
     'endDate': endDate,

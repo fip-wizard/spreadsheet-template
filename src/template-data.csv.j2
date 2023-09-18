@@ -1,7 +1,7 @@
 {%- set km = ctx.knowledgeModel -%}
 {%- set repliesMap = ctx.questionnaireReplies -%}
 {%- import "src/_mapping.j2" as mapping with context -%}
-"Question ID","Question","FER name","FER URI","Usage","Replacement Name","Replacement URI","Considerations"
+"Question","Question","FSR name","FSR URI","Usage","Replacement Name","Replacement URI","Considerations"
 {%- for d in mapping.declarations %}
 "{{ d.question }}","{{ d.note }}","{{ d.resourceName }}","{{ d.resourceURI }}","{{ d.choice }}","{{ d.replacementName }}","{{ d.replacementURI }}","{{ d.considerations }}"
 {%- endfor %}

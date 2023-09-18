@@ -1,16 +1,12 @@
-# FIP Spreadsheet Template
+# SIP Spreadsheet Template
 
-*Export FIP as tabular data/spreadsheet*
+*Export SIP as tabular data/spreadsheet*
 
 ## Changelog
 
-### 0.2.0
-
-- Updated to metamodel 11 (DSW 3.20.0)
-
 ### 0.1.0
 
-- Initial template for FIP as Spreadsheet
+- Initial template for SIP as Spreadsheet (based on FIP Spreadsheet)
 
 ## License
 

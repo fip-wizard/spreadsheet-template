@@ -1,4 +1,4 @@
-{%- set questions = [
+[
     {
         "question": "data registry",
         "chapterUuid": "c1248b82-0538-4780-a0b4-983f632b1615",
@@ -237,12 +237,4 @@
         "plannedUuid": "80d521d5-3ebb-4f8e-a530-8a03956fa869",
         "considerationsUuid": "0ec41c27-b3ea-4fc3-9abc-3fa79f7aabe5"
     }
-] -%}
-
-
-{%- set communityPath = "c1248b82-0538-4780-a0b4-983f632b1615.cdaa64a5-f0a9-407e-a05e-9c9c58fd8387" -%}
-{%- set dataStewardPath = "c1248b82-0538-4780-a0b4-983f632b1615.49fe1a47-277a-4248-a717-c5644634128d" -%}
-{%- set dotypePath = "c1248b82-0538-4780-a0b4-983f632b1615.766b1ea9-7c87-4939-9f71-f1e450f13329" -%}
-{%- set methodologyPath = "c1248b82-0538-4780-a0b4-983f632b1615.8e86aa64-2c24-4bad-a4f7-1beccb2797b1" -%}
-{%- set startDatePath = "c1248b82-0538-4780-a0b4-983f632b1615.f9a13d01-4794-4081-9d62-e6fbca5310c0" -%}
-{%- set endDatePath = "c1248b82-0538-4780-a0b4-983f632b1615.85fac974-b936-46e4-b4d0-ba4472799eb0" -%}
+]

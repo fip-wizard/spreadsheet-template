@@ -1,21 +1,15 @@
 {
-    "templateId": "fip-spreadsheet",
+    "templateId": "sip-spreadsheet",
     "organizationId": "gofair",
-    "version": "0.2.0",
-    "name": "FIP Spreadsheet",
-    "description": "Export FIP as tabular data/spreadsheet",
+    "version": "0.1.0",
+    "name": "SIP Spreadsheet",
+    "description": "Export SIP as tabular data/spreadsheet",
     "license": "Apache-2.0",
     "metamodelVersion": 11,
     "allowedPackages": [
         {
-            "orgId": "gofair",
-            "kmId": "fip-wizard-2",
-            "minVersion": "3.0.0",
-            "maxVersion": null
-        },
-        {
-            "orgId": "gofair",
-            "kmId": "fip-wizard-3",
+            "orgId": "eosc.tfsi",
+            "kmId": "semantic-interoperability-profile",
             "minVersion": null,
             "maxVersion": null
         }
@@ -72,7 +66,7 @@
         }
     ],
     "_tdk": {
-        "version": "3.20.0",
+        "version": "3.27.0",
         "readmeFile": "README.md",
         "files": [
             "src/**/*"
