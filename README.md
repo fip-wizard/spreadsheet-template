@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### 0.3.0
+
+- Updated to metamodel 12 (DSW 4.1.0)
+
 ### 0.2.0
 
 - Updated to metamodel 11 (DSW 3.20.0)
