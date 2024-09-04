@@ -1,11 +1,11 @@
 {
     "templateId": "fip-spreadsheet",
     "organizationId": "gofair",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "name": "FIP Spreadsheet",
     "description": "Export FIP as tabular data/spreadsheet",
     "license": "Apache-2.0",
-    "metamodelVersion": 12,
+    "metamodelVersion": 13,
     "allowedPackages": [
         {
             "orgId": "gofair",
@@ -16,6 +16,12 @@
         {
             "orgId": "gofair",
             "kmId": "fip-wizard-3",
+            "minVersion": null,
+            "maxVersion": null
+        },
+        {
+            "orgId": "gofair",
+            "kmId": "fip-wizard-4",
             "minVersion": null,
             "maxVersion": null
         }

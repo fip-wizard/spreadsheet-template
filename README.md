@@ -4,6 +4,14 @@
 
 ## Changelog
 
+### 0.4.0
+
+- Updated to metamodel 13 (DSW 4.3.0)
+
+### 0.3.1
+
+- Enable FIP Wizard 4 KM
+
 ### 0.3.0
 
 - Updated to metamodel 12 (DSW 4.1.0)
