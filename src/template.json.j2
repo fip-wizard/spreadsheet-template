@@ -1,14 +1,14 @@
 {%- set km = ctx.knowledgeModel -%}
-{%- set repliesMap = ctx.questionnaire.replies -%}
+{%- set repliesMap = ctx.project.replies -%}
 {%- set dc = ctx|to_context_obj -%}
 {%- import "src/_mapping.j2" as mapping with context -%}
 
 {%- set author = "" -%}
-{%- if dc.qtn.created_by %}
-    {%- set author = dc.qtn.created_by.first_name ~ " " ~ dc.qtn.created_by.last_name -%}
+{%- if dc.project.created_by %}
+    {%- set author = dc.project.created_by.first_name ~ " " ~ dc.project.created_by.last_name -%}
 {%- endif %}
 {%- set properties = {
-    "title": ctx.questionnaire.name,
+    "title": ctx.project.name,
     "subject": "FAIR Implementation Profile",
     "author": author,
     "category": "FIP Wizard",

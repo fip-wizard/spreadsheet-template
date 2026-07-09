@@ -5,8 +5,8 @@
 {%- set communityURI = "" -%}
 {%- if communityReply and communityReply.value.value.value -%}
 {%- if communityReply.value.value.type == 'IntegrationType' -%}
-    {%- set communityURI = communityReply.value.value.id -%}
-    {%- set communityName = communityReply.value.value.value.split('**')[1] -%}
+    {%- set communityURI = communityReply.value.value.raw.thing.value -%}
+    {%- set communityName = communityReply.value.value.raw.label.value -%}
 {%- elif communityReply.value.value.value.startswith('http') -%}
     {%- set communityURI = communityReply.value.value.value -%}
 {%- else -%}
@@ -47,8 +47,8 @@
             {#- resource -#}
             {%- if resourceReply and resourceReply.value.value.value -%}
             {%- if resourceReply.value.value.type == 'IntegrationType' -%}
-                {%- set resourceURI = resourceReply.value.value.id -%}
-                {%- set resourceName = resourceReply.value.value.value.split('**')[1] -%}
+                {%- set resourceURI = resourceReply.value.value.raw.thing.value -%}
+                {%- set resourceName = resourceReply.value.value.raw.label.value -%}
             {%- elif resourceReply.value.value.value.startswith('http') -%}
                 {%- set resourceURI = resourceReply.value.value.value -%}
             {%- else -%}
@@ -65,8 +65,8 @@
                 {#- replacement -#}
                 {%- if replacementReply and replacementReply.value.value.value -%}
                 {%- if replacementReply.value.value.type == 'IntegrationType' -%}
-                    {%- set replacementURI = replacementReply.value.value.id -%}
-                    {%- set replacementName = replacementReply.value.value.value.split('**')[1] -%}
+                    {%- set replacementURI = replacementReply.value.value.raw.thing.value -%}
+                    {%- set replacementName = replacementReply.value.value.raw.label.value -%}
                 {%- elif replacementReply.value.value.value.startswith('http') -%}
                     {%- set replacementURI = replacementReply.value.value.value -%}
                 {%- else -%}
@@ -77,6 +77,8 @@
                 {%- set choice = "planned use" -%}
             {%- endif -%}
 
+
+
             {%- do declarations.append({
                 'question': q.question,
                 'note': km.entities.questions[q.questionUuid].title,
@@ -85,7 +87,7 @@
                 'choice': choice,
                 'replacementName': replacementName,
                 'replacementURI': replacementURI,
-                'considerations': considerations,
+                'considerations': considerations
             }) -%}
         {%- endif -%}
     {%- endfor -%}
