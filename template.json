@@ -1,9 +1,9 @@
 {
     "templateId": "fip-spreadsheet",
     "organizationId": "gofair",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "name": "FIP Spreadsheet",
-    "description": "Export FIP as tabular data/spreadsheet",
+    "description": "Export FIP or R-FIP as tabular data/spreadsheet",
     "license": "Apache-2.0",
     "metamodelVersion": "18.0",
     "allowedPackages": [
@@ -12,9 +12,27 @@
             "kmId": "FIP",
             "minVersion": "5.1.2",
             "maxVersion": null
+        },
+        {
+            "orgId": "gofair",
+            "kmId": "reference-fip",
+            "minVersion": "1.1.5",
+            "maxVersion": null
         }
     ],
     "formats": [
+        {
+            "uuid": "6792eb81-35fc-4014-8d0d-e9e245aca1aa",
+            "name": "JSON",
+            "icon": "fas fa-file",
+            "steps": [
+                {
+                    "name": "json",
+                    "options": {
+                    }
+                }
+            ]
+        },
         {
             "uuid": "6792eb81-35fc-4014-8d0d-e9e245aca1ef",
             "name": "MS Excel",

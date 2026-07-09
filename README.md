@@ -4,9 +4,13 @@
 
 ## Changelog
 
+### 1.0.0
+
+- Adjusted as working spreadsheet for both FIP and R-FIP
+
 ### 0.9.0
 
-- Updated to metamodel 18.0 (DSW 4.10.0)
+- Updated to metamodel 18.0 (DSW 4.29.0)
 
 ### 0.5.0
 

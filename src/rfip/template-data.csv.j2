@@ -1,0 +1,7 @@
+{%- set km = ctx.knowledgeModel -%}
+{%- set repliesMap = ctx.project.replies -%}
+{%- import "src/_mapping.j2" as mapping with context -%}
+"Question ID","Question","FSR name","FSR URI"
+{%- for d in mapping.declarations %}
+"{{ d.question }}","{{ d.note }}","{{ d.resourceName }}","{{ d.resourceURI }}"
+{%- endfor %}

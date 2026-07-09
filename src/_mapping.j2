@@ -1,5 +1,7 @@
 {%- import "src/_uuids.j2" as uuids with context -%}
+{%- set isReferenceFIP = ctx.knowledgeModelPackage.kmId == 'reference-fip' -%}
 {#- METADATA -#}
+{#- community (Integration question) -#}
 {%- set communityReply = repliesMap[uuids.communityPath] -%}
 {%- set communityName = "" -%}
 {%- set communityURI = "" -%}
@@ -13,17 +15,58 @@
     {%- set communityName = communityReply.value.value.value -%}
 {%- endif -%}
 {%- endif -%}
-{%- set dataSteward = repliesMap[uuids.dataStewardPath]|reply_str_value -%}
-{%- set startDate = repliesMap[uuids.startDatePath]|reply_str_value -%}
-{%- set endDate = repliesMap[uuids.endDatePath]|reply_str_value -%}
+{#- data stewards (List + Integration question) -#}
+{%- set dataStewards = [] -%}
+{%- set dataStewardItems = repliesMap[uuids.dataStewardsPath]|reply_items -%}
+{%- for item in dataStewardItems -%}
+    {%- set dataStewardPath = [uuids.dataStewardsPath, item, uuids.dataStewardOrcidQUuid]|reply_path -%}
+    {%- set dataStewardOrcid = repliesMap[dataStewardPath]|reply_str_value -%}
+    {%- do dataStewards.append(dataStewardOrcid) -%}
+{%- endfor -%}
+{#- DO type (Integration question) -#}
+{%- set doTypeReply = repliesMap[uuids.doTypePath] -%}
+{%- set doTypeName = "" -%}
+{%- set doTypeURI = "" -%}
+{%- if doTypeReply and doTypeReply.value.value.value -%}
+{%- if doTypeReply.value.value.type == 'IntegrationType' -%}
+    {%- set doTypeURI = doTypeReply.value.value.raw.thing.value -%}
+    {%- set doTypeName = doTypeReply.value.value.raw.label.value -%}
+{%- elif doTypeReply.value.value.value.startswith('http') -%}
+    {%- set doTypeURI = doTypeReply.value.value.value -%}
+{%- else -%}
+    {%- set doTypeName = doTypeReply.value.value.value -%}
+{%- endif -%}
+{%- endif -%}
+{#- DO URL (Value question) -#}
+{%- set doUrl = repliesMap[uuids.doUrlPath]|reply_str_value -%}
+{#- Case Study (Integration question) -#}
+{%- set caseStudyReply = repliesMap[uuids.caseStudyPath] -%}
+{%- set caseStudyName = "" -%}
+{%- set caseStudyURI = "" -%}
+{%- if caseStudyReply and caseStudyReply.value.value.value -%}
+{%- if caseStudyReply.value.value.type == 'IntegrationType' -%}
+    {%- set caseStudyURI = caseStudyReply.value.value.raw.thing.value -%}
+    {%- set caseStudyName = caseStudyReply.value.value.raw.label.value -%}
+{%- elif caseStudyReply.value.value.value.startswith('http') -%}
+    {%- set caseStudyURI = caseStudyReply.value.value.value -%}
+{%- else -%}
+    {%- set caseStudyName = caseStudyReply.value.value.value -%}
+{%- endif -%}
+{%- endif -%}
+{#- version (Value question) -#}
+{%- set version = repliesMap[uuids.versionPath]|reply_str_value -%}
 
 {%- set metadata = {
     'pubDate': ctx.document.createdAt,
     'communityName': communityName,
     'communityURI': communityURI,
-    'dataSteward': dataSteward,
-    'startDate': startDate,
-    'endDate': endDate,
+    'dataStewards': dataStewards,
+    'doTypeName': doTypeName,
+    'doTypeURI': doTypeURI,
+    'doUrl': doUrl,
+    'caseStudyName': caseStudyName,
+    'caseStudyURI': caseStudyURI,
+    'version': version,
 } -%}
 
 {#- DATA -#}
@@ -37,7 +80,7 @@
         {%- set replacementReply = repliesMap[[itemPath, q.choiceUuid, q.replaceUuid, q.replacementUuid]|reply_path] -%}
         {%- set choiceUuid = repliesMap[[itemPath, q.choiceUuid]|reply_path]|reply_str_value -%}
         {%- set considerations = repliesMap[[itemPath, q.considerationsUuid]|reply_path]|reply_str_value -%}
-        {%- if resourceReply and choiceUuid -%}
+        {%- if resourceReply and (choiceUuid or isReferenceFIP) -%}
             {%- set resourceName = "" -%}
             {%- set resourceURI = "" -%}
             {%- set replacementName = "" -%}
@@ -76,8 +119,6 @@
             {%- elif choiceUuid == q.plannedUuid -%}
                 {%- set choice = "planned use" -%}
             {%- endif -%}
-
-
 
             {%- do declarations.append({
                 'question': q.question,
